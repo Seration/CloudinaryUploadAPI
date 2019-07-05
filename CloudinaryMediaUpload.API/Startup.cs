@@ -91,10 +91,11 @@ namespace CloudinaryMediaUpload.API
                 // c.SwaggerEndpoint("/swagger-original.json", "Swagger Petstore Original");
             });
 
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            
 
         }
     }

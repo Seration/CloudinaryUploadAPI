@@ -32,31 +32,35 @@ namespace CloudinaryMediaUpload.API.Controllers
             _cloudinary = new Cloudinary(acc);
         }
 
-        [ServiceFilter(typeof(TokenFilter))]
         [HttpPost("UploadMedia"), DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadMedia([FromForm] IFormFile File)
+        public IActionResult UploadMedia([FromForm] IFormFile[] File)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            UploadResultDto result = new UploadResultDto();
             var uploadResult = new ImageUploadResult();
 
             if (File.Length > 0)
             {
-                using (var stream = File.OpenReadStream())
+                for (int i = 0; i < File.Length; i++)
                 {
-                    var uploadParams = new ImageUploadParams()
+                    using (var stream = File[i].OpenReadStream())
                     {
-                        File = new FileDescription(File.Name, stream),
-                        Transformation = new Transformation()
-                            .Width(800),
-                    };
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(File[i].Name, stream),
+                            Transformation = new Transformation()
+                                .Width(800),
+                        };
 
-                    uploadResult = _cloudinary.Upload(uploadParams);
+                        uploadResult = _cloudinary.Upload(uploadParams);
+                    }
+
+                    result.MediaUrl.Add(uploadResult.Uri.ToString());
                 }
             }
-
-            return Ok(uploadResult.Uri.ToString());
+            return Ok(result);
         }
     }
 }
