@@ -44,12 +44,6 @@ namespace CloudinaryMediaUpload.API
                     Title = "Swagger on ASP.NET Core",
                     Version = "1.0.0",
                     Description = "Try Swagger on (ASP.NET Core 2.1)",
-                    Contact = new Contact()
-                    {
-                        Name = "Swagger Implementation Bora kasmer",
-                        Url = "http://borakasmer.com",
-                        Email = "bora@borakasmer.com"
-                    },
                     TermsOfService = "http://swagger.io/terms/"
                 });
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>

@@ -57,7 +57,7 @@ namespace CloudinaryMediaUpload.API.Controllers
                         uploadResult = _cloudinary.Upload(uploadParams);
                     }
 
-                    result.MediaUrl.Add(uploadResult.Uri.ToString());
+                    result.MediaUrl.Add(uploadResult.Uri.OriginalString);
                 }
             }
             return Ok(result);

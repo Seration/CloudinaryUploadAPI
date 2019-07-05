@@ -7,6 +7,11 @@ namespace CloudinaryMediaUpload.API.Model
 {
     public class UploadResultDto
     {
+        public UploadResultDto()
+        {
+            MediaUrl = new List<string>();
+        }
+
         public List<string> MediaUrl { get; set; }
     }
 }
